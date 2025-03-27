@@ -95,13 +95,13 @@ final class TestController extends AbstractController
     }
 
     // Route qui supprime un produit
-    #[Route('/test8', name: 'test8', methods: ['GET'])]
-    public function test8(EntityManagerInterface $entityManager): Response
+    #[Route('/test8/{id}', name: 'test8', methods: ['GET'], requirements: ['id' => '[1-9][0-9]*'])]
+    public function test8(EntityManagerInterface $entityManager, int $id): Response
     {
-        $produit = $entityManager->getRepository(Produit::class)->find(1);
+        $produit = $entityManager->getRepository(Produit::class)->find($id);
         $entityManager->remove($produit);
         $entityManager->flush();
-        return new Response("<h1>Produit 1 supprimé</h1>");
+        return new Response("<h1>Produit supprimé</h1>");
     }
 
     // Route qui va lister tous les produits

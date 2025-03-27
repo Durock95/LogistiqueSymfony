@@ -24,7 +24,7 @@
     <td>Mise à jour </td>
     </thead>
 {% for produit in produits %}
-    <tr>
+
     <td>{{ produit.nom }}</td>
     <td>{{ produit.categorie.nom }}</td>
      <td>{{ produit.fournisseur.nom }}</td>
@@ -38,6 +38,8 @@
     <td>{{ produit.estActif ? 'OUI' : 'NON' }}</td>
     <td>{{ produit.dateCreation | date('d-m-Y') }}</td>
     <td>{{ produit.dateMaj | date('d-m-Y') }}</td>
+    <td><button><a href="/test10/{{ produit.id }}">Modifier</a></button></td>
+    <td><button><a href="/test8/{{ produit.id }}">Supprimer</a></button></td>
     <td><img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.imageName }}" height="100"</td>
     </tr>
 {% endfor %}

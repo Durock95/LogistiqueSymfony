@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test 102{% endblock %}
+
+{% block stylesheets %}
+{# {{ encore_entry_links_tags('tail') }}" #}
+{% endblock %}
+
+{% block body %}
+{{form_start(form)}}
+<div class="m-auto text-xl">
+<div class="text-red-100 text-xl">{{form_errors(form)}}</div>
+<div class="item">{{form_row(form.categorie)}}</div>
+<div class="item">{{form_row(form.fournisseur)}}</div>
+<div class="text-blue-100">{{form_row(form.nom)}}</div>
+<div class="item">{{form_row(form.reference)}}</div>
+<div class="item">{{form_row(form.typeConditionnement)}}</div>
+<div class="item">{{form_row(form.quantite)}}</div>
+<div class="item">{{form_row(form.emplacement)}}</div>
+<div class="item">{{form_row(form.prix)}}</div>
+<div class="item">{{form_row(form.quota)}}</div>
+<div class="item">{{form_row(form.stock)}}</div>
+<div class="item">{{form_row(form.estActif)}}</div>
+<div class="item">{{form_row(form.imageFile)}}</div>
+{# <div class="item">{{form_row(form.dateCreation)}}</div> 
+<div class="item">{{form_row(form.dateMaj)}}</div> #}
+</div>
+{# {{form(form)}} #}
+{{form_rest(form)}}
+{% endblock %}

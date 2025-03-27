@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test 7{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/test7.css') }}"
+{% endblock %}
+
+{% block body %}
+<h1>Test 72</h1>
+ <table class="m-auto">
+    <thead>
+    <td class="text-red-100">Nom</td>
+    <td>Catégorie</td>
+    <td>Référence</td>
+    <td>Conditionnement</td>
+    <td>Quantité</td>
+    <td>Emplacement</td>
+    <td>Prix</td>
+    <td>Quota</td>
+    <td>Stock</td>
+    <td>Actif</td>
+    <td>Création</td>
+    <td>Mise à jour </td>
+    </thead>
+{% for produit in produits %}
+    <tr>
+    <td>{{ produit.nom }}</td>
+    <td>{{ produit.categorie.nom }}</td>
+     <td>{{ produit.fournisseur.nom }}</td>
+    <td>{{ produit.reference }}</td>
+    <td>{{ produit.typeConditionnement }}</td>
+    <td>{{ produit.quantite }}</td>
+    <td>{{ produit.emplacement }}</td>
+    <td>{{ (produit.prix / 100) | number_format }}</td>
+    <td>{{ produit.quota }}</td>
+    <td>{{ produit.stock }}</td>
+    <td>{{ produit.estActif ? 'OUI' : 'NON' }}</td>
+    <td>{{ produit.dateCreation | date('d-m-Y') }}</td>
+    <td>{{ produit.dateMaj | date('d-m-Y') }}</td>
+    <td><img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.imageName }}" height="100"</td>
+    </tr>
+{% endfor %}
+       </table>
+{% endblock %}

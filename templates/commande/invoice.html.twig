@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facture{% endblock %}
+
+{% block body %}
+<h1>Commande #{{ commande.numero }}</h1>
+<h3>{{ commande.acheteur.pointDeVente.enseigne }} ({{ commande.acheteur.nom}} {{ commande.acheteur.prenom}})</h3>
+<p>Etat : {{ commande.etat.value }}</p>
+<p>Création : {{commande.dateCommande | date}}</p>
+<p>Validation : {{commande.dateValidation | date}}</p>
+<p>Début prép. : {{commande.dateDebutPrepa | date}}</p>
+<p>Fin prép. : {{commande.dateFinPrepa | date}}</p>
+<p>Expédition : {{commande.dateExpedition | date}}</p>
+<p>Expédition : {{commande.dateExpedition | date}}</p>
+
+{% for ligne in commande.lignes %}
+    <p>Produits {{ ligne.produit.nom }}
+     x 
+     {{ ligne.quantite }}
+      x 
+      {{ (ligne.produit.prix / 100) | number_format }}
+      =
+      {{ (ligne.quantite * ligne.produit.prix / 100) | number_format }}
+      </p>
+{% endfor %}
+<p>TOTAL : {{(commande.total / 100) | number_format}}</p>
+<p><a href="/commande/invoicePDF/{{ commande.id }}"> Télécharger le PDF</a> </p>
+{% endblock %}

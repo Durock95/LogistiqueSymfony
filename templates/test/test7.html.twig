@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test 7{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/test7.css') }}"
+{% endblock %}
+
+{% block body %}
+    <div>
+    <h1>Test 7</h1>
+    <p>Nom : {{ produit.nom }}</p>
+    <p>Référence : {{ produit.reference }}</p>
+    <p>Conditionnement : {{ produit.typeConditionnement }} de {{ produit.quantite }}</p>
+    <p>Emplacement : {{ produit.emplacement }}</p>
+    <p>Prix : {{ produit.prix | number_format }}</p>
+    <p>Quota : {{ produit.quota }}</p>
+    <p>Stock : {{ produit.stock }}</p>
+    <p>Actif : {{ produit.estActif ? 'OUI' : 'NON' }}</p>
+    <p>Création : {{ produit.dateCreation | date('d-m-Y') }}</p>
+    <p>Mise à jour  : {{ produit.dateMaj | date('d-m-Y') }}</p>
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+html {
+  font-size: 12px;
+  font-family: Arial;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+p {
+  font-size: 2rem;
+}

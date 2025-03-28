@@ -101,7 +101,7 @@ final class TestController extends AbstractController
         $produit = $entityManager->getRepository(Produit::class)->find($id);
         $entityManager->remove($produit);
         $entityManager->flush();
-        return new Response("<h1>Produit supprimé</h1>");
+        return $this->redirectToRoute('test9');
     }
 
     // Route qui va lister tous les produits

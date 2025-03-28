@@ -38,14 +38,15 @@ security:
         - { path: ^/test12 }
         - { path: ^/test13 }
         - { path: ^/test2/, roles: ROLE_USER }
+        - { path: ^/test9, roles: [ROLE_ADMIN, ROLE_LOGISTICIEN, ROLE_ACHETEUR] }
         - { path: ^/test, roles: ROLE_ADMIN }
-        - { path: ^/commande/add/, roles: ROLE_ACHETEUR }
+        - { path: ^/commande/add/, roles: [ROLE_ADMIN, ROLE_LOGISTICIEN, ROLE_ACHETEUR] }
         - { path: ^/commande/checkout$, roles: ROLE_ACHETEUR }
         - { path: ^/commande/begin/, roles: ROLE_LOGISTICIEN }
         - { path: ^/commande/end/, roles: ROLE_LOGISTICIEN }
         - { path: ^/commande/expedition, roles: ROLE_LOGISTICIEN }
-        - { path: ^/commande/invoice/, roles: ROLE_LOGISTICIEN }
-        - { path: ^/commande/invoicePDF/, roles: ROLE_LOGISTICIEN }
+        - { path: ^/commande/invoice/, roles: [ROLE_LOGISTICIEN, ROLE_ACHETEUR] }
+        - { path: ^/commande/invoicePDF/, roles: [ROLE_LOGISTICIEN, ROLE_ACHETEUR] }
 
 when@test:
     security:

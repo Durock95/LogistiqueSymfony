@@ -225,4 +225,6 @@ final class CommandeController extends AbstractController
         );
         return new Response($html2pdf->output("", 'S'), 200, ['content-type' => 'application/pdf', 'Content-Disposition' => $disposition]);
     }
+
+    
 }

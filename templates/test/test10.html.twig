@@ -2,9 +2,9 @@
 
 {% block title %}Test 102{% endblock %}
 
-{% block stylesheets %}
-{# {{ encore_entry_links_tags('tail') }}" #}
-{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('styles/test7.css') }}"> {% endblock %}
+
+
 
 {% block body %}
 {{form_start(form)}}
@@ -12,7 +12,7 @@
 <div class="text-red-100 text-xl">{{form_errors(form)}}</div>
 <div class="item">{{form_row(form.categorie)}}</div>
 <div class="item">{{form_row(form.fournisseur)}}</div>
-<div class="text-blue-100">{{form_row(form.nom)}}</div>
+<div class="item">{{form_row(form.nom)}}</div>
 <div class="item">{{form_row(form.reference)}}</div>
 <div class="item">{{form_row(form.typeConditionnement)}}</div>
 <div class="item">{{form_row(form.quantite)}}</div>

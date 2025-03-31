@@ -37,6 +37,7 @@ class PointDeVente
     #[ORM\Column]
     private ?bool $estActif = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,4 +138,5 @@ class PointDeVente
 
         return $this;
     }
+
 }

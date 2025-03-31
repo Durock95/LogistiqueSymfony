@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -21,24 +23,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[NotBlank(message: "L'email' est obligatoire")]
+    #[Assert\Length(max: 180, maxMessage: "L'email doit contenir au plus 180 caractères")]
     private ?string $email = null;
 
     /**
      * @var list<string> The user roles
      */
     #[ORM\Column]
+    #[NotBlank(message: 'Le rôle est obligatoire')]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[NotBlank(message: 'Le mot de passe est obligatoire')]
+    #[Assert\Length(max: 50, maxMessage: 'Le mot de passe doit contenir au plus 50 caractères')]
     private ?string $password = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[NotBlank(message: 'Le nom est obligatoire')]
+    #[Assert\Length(max: 50, maxMessage: 'Le nom doit contenir au plus 50 caractères')]
     private ?string $nom = null;
 
     #[ORM\Column(length: 30, nullable: true)]
+    #[NotBlank(message: 'Le prénom est obligatoire')]
+    #[Assert\Length(max: 30, maxMessage: 'Le prénom doit contenir au plus 50 caractères')]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 20, nullable: true)]
@@ -48,6 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $estActif = null;
 
     #[ORM\ManyToOne(inversedBy:'users')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?PointDeVente $pointDeVente = null;
 
     #[ORM\Column]
@@ -58,6 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'acheteur')]
     private Collection $commandes;
+
 
     public function __construct()
     {

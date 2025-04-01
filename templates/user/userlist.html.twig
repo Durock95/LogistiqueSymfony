@@ -27,8 +27,7 @@
 <tr>
 	<td>{{ user.nom }}</td>
 	<td>{{ user.prenom }}</td>
-  <td></td>
-	{# <td>{{ user.roles }}</td> #}
+	<td>{{ user.roles|join(', ')}}</td>	
 	<td>{{ user.telephone }}</td>
 	<td>{{ user.email }}</td>
 	<td>{{ user.pointDeVente.nom }}</td>

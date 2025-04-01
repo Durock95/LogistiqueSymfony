@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,8 +20,10 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', TextType::class, ['label' => "Nom"])
+            ->add('email', TextType::class, ['label' => "Email"])
             ->add('roles', ChoiceType::class,[
+                // 'class' => User::class,
+                // 'choices' => $options['roles']
                 'choices' => [
                     'ROLE_USER' => 'ROLE_USER',
                     'ROLE_ADMIN' => 'ROLE_ADMIN',
@@ -28,10 +31,12 @@ class UserType extends AbstractType
                     'ROLE_LOGISTICIEN' => 'ROLE_LOGISTICIEN',
                     'ROLE_GESTIONNAIRE' => 'ROLE_GESTIONNAIRE'
                 ],
+                'expanded' => false,
+                'multiple' => true,
                     'label' => 'Rôle',
                 
             ])
-            ->add('password', PasswordType::class, ['label' => "Mot de passe"])
+            ->add('password', PasswordType::class, ['mapped' => false, 'label' => "Mot de passe"])
             ->add('nom', TextType::class, ['label' => "Nom"])
             ->add('prenom', TextType::class, ['label' => "Prénom"])
             ->add('telephone', NumberType::class, ['label' => "Téléphone"])
@@ -42,6 +47,7 @@ class UserType extends AbstractType
                 'choice_label' => 'nom',
                 'label' => 'Point de vente',
             ])
+            ->add('submit', SubmitType::class, ['label'=> "Valider"])
         ;
     }
 

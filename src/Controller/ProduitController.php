@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\LigneCommande;
 use App\Entity\Produit;
+use App\Form\LigneCommandeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -34,5 +37,30 @@ final class ProduitController extends AbstractController
         $entityManager->persist($produit);
         $entityManager->flush();
         return $this->redirectToRoute('test9');
+    }
+
+    // Route qui list l'ensemble des produits et permet d'ajouter les produits
+    #[Route('/produits', name: 'produits', methods: ['GET'])]
+    public function produits(EntityManagerInterface $entityManager, Request $request, int $id = 0): Response
+    { 
+        $produits = $entityManager->getRepository(Produit::class)->findBy([], ['nom' => 'ASC']);
+        // $lignes = $id ? $entityManager->getRepository(LigneCommande::class)->findBy([], ['quantite' => 'ASC']) : new LigneCommande;
+        // if ($lignes->getQuantite() > 1) {
+        // $lignes->getQuantite() - 1;
+        //     $entityManager->persist($lignes);
+        //     $entityManager->flush();
+        // } else {
+        //     $entityManager->remove($lignes);
+        //     $entityManager->flush();
+        // };
+        // $form = $this->createForm(LigneCommandeType::class, $ligne);
+        // $form->handleRequest($request);
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     // $ligne->setQuantite();
+        //     $entityManager->persist($ligne);
+        //     $entityManager->flush();
+        //     return $this->redirectToRoute('produits');
+        // }
+        return $this->render('produit/produits.html.twig', ['produits' => $produits]);
     }
 }

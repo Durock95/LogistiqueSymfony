@@ -19,6 +19,7 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
+                default_target_path: produits
                 enable_csrf: false
             logout:
                 path: app_logout
@@ -50,7 +51,7 @@ security:
         - { path: ^/commande/begin/, roles: ROLE_LOGISTICIEN }
         - { path: ^/commande/end/, roles: ROLE_LOGISTICIEN }
         - { path: ^/commande/expedition, roles: ROLE_LOGISTICIEN }
-        - { path: ^/commande/invoice/, roles: [ROLE_LOGISTICIEN, ROLE_ACHETEUR] }
+        - { path: ^/commande/invoice/, roles: [ROLE_LOGISTICIEN, ROLE_ACHETEUR, ROLE_ADMIN] }
         - { path: ^/commande/invoicePDF/, roles: [ROLE_LOGISTICIEN, ROLE_ACHETEUR] }
 
 when@test:

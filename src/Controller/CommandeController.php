@@ -12,11 +12,95 @@ use Spipu\Html2Pdf\Html2Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class CommandeController extends AbstractController
 {
+    // Route qui affiche le panier
+    #[Route('/panier', name: 'panier', methods: ['GET'])]
+public function panier(EntityManagerInterface $entityManager): Response
+{
+    $commande = $entityManager->getRepository(Commande::class)->findOneBy([
+        'etat' => EtatCommande::EN_COURS,
+        'acheteur' => $this->getUser(),
+    ]);
+
+    return $this->render('/commande/panier.html.twig', [
+        'commande' => $commande,
+    ]);
+}
+    // Route qui màj le panier
+    #[Route('/commande/update/{id}', name: 'commande_update', methods: ['GET'])]
+public function update(Request $request, EntityManagerInterface $entityManager, int $id): Response
+{
+    $quantite = (int) $request->query->get('quantite', 1);
+
+    $produit = $entityManager->getRepository(Produit::class)->find($id);
+    $commande = $entityManager->getRepository(Commande::class)->findOneBy([
+        'etat' => EtatCommande::EN_COURS,
+        'acheteur' => $this->getUser(),
+    ]);
+
+    if (!$produit || !$commande) {
+        return $this->redirectToRoute('test9');
+    }
+
+    $ligne = $entityManager->getRepository(LigneCommande::class)->findOneBy([
+        'commande' => $commande,
+        'produit' => $produit,
+    ]);
+
+    if ($ligne) {
+        if ($quantite === 0) {
+            $entityManager->remove($ligne);
+        } else {
+            $ligne->setQuantite($quantite);
+            $entityManager->persist($ligne);
+        }
+
+        // Update total
+        $commande->setTotal((int) $entityManager->getRepository(Commande::class)->findTotal()['total']);
+        $entityManager->persist($commande);
+        $entityManager->flush();
+    }
+
+    return $this->redirectToRoute('panier');
+}
+
+    //Route qui supprime un produit de la ligne
+    #[Route('/commande/remove/{id}', name: 'commande_remove', methods: ['GET'], requirements: ['id' => '[1-9][0-9]*'])]
+    public function remove(EntityManagerInterface $entityManager, int $id): Response
+    {
+        $produit = $entityManager->getRepository(Produit::class)->find($id);
+
+        $commande = $entityManager->getRepository(Commande::class)->findOneBy([
+            'etat' => EtatCommande::EN_COURS,
+            'acheteur' => $this->getUser(),
+        ]);
+
+        $ligne = $entityManager->getRepository(LigneCommande::class)->findOneBy([
+            'commande' => $commande,
+            'produit' => $produit,
+        ]);
+
+        // Decrease quantity or remove line
+        if ($ligne->getQuantite() > 1) {
+            $ligne->setQuantite($ligne->getQuantite() - 1);
+            $entityManager->persist($ligne);
+        } else {
+            $entityManager->remove($ligne);
+        }
+
+        // Update total if needed
+        // $commande->setTotal((int) $entityManager->getRepository(Commande::class)->findTotal()['total']);
+        $entityManager->persist($commande);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('panier'); // or return JsonResponse if using fetch
+    }
+
     // Route qui ajoute un produit au panier dans une certaine quantité (ou le supprime si quantité nulle).
     #[Route('/commande/add/{id}/{quantite}', name: 'commande_add', methods: ['GET'], requirements: ['id' => '[1-9][0-9]*', 'quantite' => '[0-9]*'])]
     public function add(EntityManagerInterface $entityManager, int $id, int $quantite = 1): Response
@@ -225,6 +309,7 @@ final class CommandeController extends AbstractController
         );
         return new Response($html2pdf->output("", 'S'), 200, ['content-type' => 'application/pdf', 'Content-Disposition' => $disposition]);
     }
+
 
     
 }

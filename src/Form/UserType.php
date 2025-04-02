@@ -22,6 +22,7 @@ class UserType extends AbstractType
         $builder
             ->add('email', TextType::class, ['label' => "Email"])
             ->add('roles', ChoiceType::class,[
+                // 'attr' => 'form-select',
                 // 'class' => User::class,
                 // 'choices' => $options['roles']
                 'choices' => [
@@ -33,7 +34,7 @@ class UserType extends AbstractType
                 ],
                 'expanded' => false,
                 'multiple' => true,
-                    'label' => 'Rôle',
+                'label' => 'Rôle',
                 
             ])
             ->add('password', PasswordType::class, ['mapped' => false, 'label' => "Mot de passe"])

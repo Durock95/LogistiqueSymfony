@@ -12,3 +12,11 @@ h1 {
 p {
   font-size: 2rem;
 }
+
+.success {
+  color: rgb(90, 153, 26);
+}
+
+.error {
+  color: red;
+}

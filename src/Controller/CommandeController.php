@@ -133,8 +133,8 @@ public function update(Request $request, EntityManagerInterface $entityManager, 
         }
         // Récupérer une éventuelle ligne de commande avec le produit.
         $lignes = $entityManager->getRepository(LigneCommande::class)->findBy(['commande' => $commande, 'produit' => $produit]);
-        // Si pas de ligne et quantité nulle, erreur.
-        if (!$lignes && !$quantite)
+        // Si pas de ligne et quantité nulle ou quantité inférieure à 0, erreur.
+        if (!$lignes && !$quantite || $quantite < 0)
             return new JsonResponse(['ok' => false]);
         // Si déjà une ligne, modifier la quantité.
         if ($lignes) {

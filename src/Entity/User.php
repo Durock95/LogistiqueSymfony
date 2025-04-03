@@ -39,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     #[NotBlank(message: 'Le mot de passe est obligatoire')]
-    #[Assert\Length(max: 50, maxMessage: 'Le mot de passe doit contenir au plus 50 caractères')]
+    #[Assert\Length(max: 255, maxMessage: 'Le mot de passe doit contenir au plus 255 caractères')]
     private ?string $password = null;
 
     #[ORM\Column(length: 50, nullable: true)]
@@ -71,13 +71,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'acheteur')]
     private Collection $commandes;
 
-
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
     }
-
-
 
     public function getId(): ?int
     {

@@ -6,6 +6,7 @@ use App\Entity\PointDeVente;
 use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
+use Error;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,19 +40,15 @@ final class UserController extends AbstractController{
             $form = $this->createForm(UserType::class, $user, ['pointDeVentes' => $pointDeVentes]); // 
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                // $user->setEmail();
                 $plainPassword = $form->get('password')->getData();
                 $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-                // $user->setNom();
-                // $user->setPrenom();
-                // $user->setTelephone();
-                // $user->setRoles();
-                // $user->setEstActif();
-                // $user->setPointDeVente();
                 $entityManager->persist($user);
                 $entityManager->flush();
                 return $this->redirectToRoute('userlist');
+            
             }
+            if ($form->isSubmitted())
+            dump("Le formulaire n'est pas valide");
             return $this->render('user/create.html.twig', ['form' => $form]);
         }
     

@@ -54,6 +54,8 @@ security:
         - { path: ^/commande/invoice/, roles: [ROLE_LOGISTICIEN, ROLE_ACHETEUR, ROLE_ADMIN] }
         - { path: ^/commande/invoicePDF/, roles: [ROLE_LOGISTICIEN, ROLE_ACHETEUR] }
         - { path: ^/create, roles: ROLE_ADMIN }
+        - { path: ^/pointsdevente$, roles: [ROLE_ADMIN, ROLE_GESTIONNAIRE] }
+        - { path: ^/managepdv/, roles: [ROLE_ADMIN, ROLE_GESTIONNAIRE] }
 
 when@test:
     security:

@@ -5,64 +5,67 @@
 
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('styles/test7.css') }}">
-{% endblock %} 
+	<link rel="stylesheet" href="{{ asset('styles/test7.css') }}">
+{% endblock %}
 
 {% block body %}
- <h1>Test 9</h1> 
- <table class="m-auto"> 
- <thead> 
-	<td>Nom</td>
-	<td>Catégorie</td>
-	<td>Fournisseur</td>
-	<td>Référence</td>
-	<td>Conditionnement</td>
-	<td>Quantité</td>
-	<td>Emplacement</td>
-	<td>Prix</td>
-	<td>Quota</td>
-	<td>Stock</td>
-	<td>Actif</td>
-	<td>Création</td>
-	<td>Mise à jour</td>
-</thead>
-{% for produit in produits %}
-{# Passer l'id à la fonction JS qui va faire le fetch: passer en paramètre, ou écouteur d'évènement et la fonction se sert de la prop target (type mouseclick, prop target => ce sur quoi on a cliqué, àpartir de la l'élément selctionné, avec un id produit=ok . Mettre des id dynamiques sur les éléments html) #}
-<tr>
-	<td>{{ produit.nom }}</td>
-	<td>{{ produit.categorie.nom }}</td>
-	<td>{{ produit.fournisseur.nom }}</td>
-	<td>{{ produit.reference }}</td>
-	<td>{{ produit.typeConditionnement }}</td>
-	<td>{{ produit.quantite }}</td>
-	<td>{{ produit.emplacement }}</td>
-	<td>{{ (produit.prix / 100) | number_format }}</td>
-	<td>{{ produit.quota }}</td>
-	<td>{{ produit.stock }}</td>
-	<td>{{ produit.estActif ? 'OUI' : 'NON' }}</td>
-	<td>{{ produit.dateCreation | date('d-m-Y') }}</td>
-	<td>{{ produit.dateMaj | date('d-m-Y') }}</td>
+	<h1>Test 9</h1>
+	<table class="m-auto">
+		<thead>
+			<td>Nom</td>
+			<td>Catégorie</td>
+			<td>Fournisseur</td>
+			<td>Référence</td>
+			<td>Conditionnement</td>
+			<td>Quantité</td>
+			<td>Emplacement</td>
+			<td>Prix</td>
+			<td>Quota</td>
+			<td>Stock</td>
+			<td>Actif</td>
+			<td>Création</td>
+			<td>Mise à jour</td>
+			<td>
+				<a href="/test10">Ajouter</a>
+			</td>
+		</thead>
+		{% for produit in produits %}
+			{# Passer l'id à la fonction JS qui va faire le fetch: passer en paramètre, ou écouteur d'évènement et la fonction se sert de la prop target (type mouseclick, prop target => ce sur quoi on a cliqué, àpartir de la l'élément selctionné, avec un id produit=ok . Mettre des id dynamiques sur les éléments html) #}
+			<tr>
+				<td>{{ produit.nom }}</td>
+				<td>{{ produit.categorie.nom }}</td>
+				<td>{{ produit.fournisseur.nom }}</td>
+				<td>{{ produit.reference }}</td>
+				<td>{{ produit.typeConditionnement }}</td>
+				<td>{{ produit.quantite }}</td>
+				<td>{{ produit.emplacement }}</td>
+				<td>{{ (produit.prix / 100) | number_format }}</td>
+				<td>{{ produit.quota }}</td>
+				<td>{{ produit.stock }}</td>
+				<td>{{ produit.estActif ? 'OUI' : 'NON' }}</td>
+				<td>{{ produit.dateCreation | date('d-m-Y') }}</td>
+				<td>{{ produit.dateMaj | date('d-m-Y') }}</td>
 
-	<td>
-		<a href="/commande/add/{{ produit.id }}/1">Ajouter</a>
-	</td>
-	<td>
-		<a href="/test10/{{ produit.id }}">Modifier</a>
-	</td>
-	{% if produit.estActif %}
-		<td>
-			<a href="/produit/inactive/{{ produit.id }}">Désactiver</a>
-		</td>
-	{% else %}
-		<td>
-			<a href="/produit/active/{{ produit.id }}">Activer</a>
-		</td>
-	{% endif %}
+				<td>
+					<a href="/commande/add/{{ produit.id }}/1">Ajouter</a>
+				</td>
+				<td>
+					<a href="/test10/{{ produit.id }}">Modifier</a>
+				</td>
+				{% if produit.estActif %}
+					<td>
+						<a href="/produit/inactive/{{ produit.id }}">Désactiver</a>
+					</td>
+				{% else %}
+					<td>
+						<a href="/produit/active/{{ produit.id }}">Activer</a>
+					</td>
+				{% endif %}
 
-	<td>
-		<img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.imageName }}" height="100" >
-     </td> 
-        </tr> 
-        {% endfor %} 
-        </table> 
-        {% endblock %}
+				<td>
+					<img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.imageName }}" height="100">
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+{% endblock %}

@@ -37,10 +37,13 @@ class UserType extends AbstractType
                 'label' => 'Rôle',
                 
             ])
-            ->add('password', PasswordType::class, ['mapped' => false, 'label' => "Mot de passe"])
+            ->add('password', PasswordType::class, [
+                // 'hash_property_path' => 'password',
+                'mapped' => true, 
+                'label' => "Mot de passe"])
             ->add('nom', TextType::class, ['label' => "Nom"])
             ->add('prenom', TextType::class, ['label' => "Prénom"])
-            ->add('telephone', NumberType::class, ['label' => "Téléphone"])
+            ->add('telephone', TextType::class, ['label' => "Téléphone"])
             ->add('estActif', CheckboxType::class, ['label' => "Actif"])
             ->add('pointDeVente', EntityType::class, [
                 'class' => PointDeVente::class,

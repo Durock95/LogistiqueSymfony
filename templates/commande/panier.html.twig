@@ -48,6 +48,8 @@
 
 		<a href="{{ path('commande_checkout') }}" class="btnViews">
 			Passer la commande</a>
+      {% else %}
+       <h2>Votre panier est vide</h2> 
 	{% endif %}
   <a href="{{ path('produits') }}" class="btnViews"> Tous les produits </a>
 

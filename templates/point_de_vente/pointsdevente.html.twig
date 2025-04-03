@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Points de vente
+{% endblock %}
+
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('styles/test7.css') }}">
+{% endblock %}
+
+
+{% block body %}
+<h1>Points de vente</h1>
+
+
+<div id="alerts"></div>
+<table class="m-auto">
+	<thead>
+		<td>Enseigne</td>
+		<td>Nom</td>
+		<td>Référence</td>
+		<td>Adresse</td>
+		<td>Code postal par cond.</td>
+		<td>Ville</td>
+		<td>Actif</td>
+		<a href="{{ path('managepdv')}}">Ajouter</a>
+	</thead>
+	{% for pointDeVente in pointsDeVente %}
+		{# Passer l'id à la fonction JS qui va faire le fetch: passer en paramètre, ou écouteur d'évènement et la fonction se sert de la prop target (type mouseclick, prop target => ce sur quoi on a cliqué, àpartir de la l'élément selctionné, avec un id produit=ok . Mettre des id dynamiques sur les éléments html) #}
+		<tr>
+			<td>{{ pointDeVente.enseigne }}</td>
+			<td>{{ pointDeVente.nom }}</td>
+			<td>{{ pointDeVente.reference }}</td>
+			<td>{{ pointDeVente.adresse }}</td>
+			<td>{{ pointDeVente.codePostal }}</td>
+			<td>{{ pointDeVente.ville }}</td>
+			<td>{{ pointDeVente.telephone }}</td>
+			<td>{{ pointDeVente.estActif }}</td>
+			<td><a href="{{ path('managepdv', {id: pointDeVente.id})}}">Modifier</a></td>
+		</tr>
+	</td>
+</tr>{% endfor %}</table>{% endblock %}

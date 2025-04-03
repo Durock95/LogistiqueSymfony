@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Point de vente{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('styles/test7.css') }}"> {% endblock %}
+
+{% block body %}
+{{form_start(form)}}
+<div class="m-auto text-xl">
+<div class="text-red-100 text-xl">{{form_errors(form)}}</div>
+<div class="item">{{form_row(form.enseigne)}}</div>
+<div class="item">{{form_row(form.nom)}}</div>
+<div class="item">{{form_row(form.reference)}}</div>
+<div class="item">{{form_row(form.adresse)}}</div>
+<div class="item">{{form_row(form.codePostal)}}</div>
+<div class="item">{{form_row(form.ville)}}</div>
+<div class="item">{{form_row(form.telephone)}}</div>
+<div class="item">{{form_row(form.estActif)}}</div>
+</div>
+{{form_rest(form)}}
+{% endblock %}

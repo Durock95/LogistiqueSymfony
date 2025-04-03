@@ -19,6 +19,7 @@ function add(btn) {
   let url = `${BASE_URL}/${id}/${number}`;
   console.log(id, number, url);
       fetch(url)
+      // .then(response => console.log(response))
       .then(response => response.ok ? response.json() : Promise.reject("Network error !"))
       .then(response => addAlert(response.ok))
       .catch(error => addAlert(error));

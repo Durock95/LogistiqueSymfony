@@ -114,7 +114,7 @@ public function update(Request $request, EntityManagerInterface $entityManager, 
         $produit = $produits[0];
         // $total = $produit->getPrix() * $quantite;
         // Tenter de récupérer la commande en cours de l’utilisateur logué.
-        $commandes = $entityManager->getRepository(Commande::class)->findBy(['etat' => EtatCommande::EN_COURS]);
+        $commandes = $entityManager->getRepository(Commande::class)->findBy(['etat' => EtatCommande::EN_COURS, 'acheteur' => $this->getUser()]);
         // Si pas de commande en cours et quantité nulle, erreur.
         if (!$commandes && !$quantite)
             return new JsonResponse(['ok' => false]);

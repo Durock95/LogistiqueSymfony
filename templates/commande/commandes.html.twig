@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Commandes
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('styles/test7.css') }}">
+{% endblock %}
+
+{% block body %}
+
+
+	{% if commandes is defined %}
+		<h2>Commandes</h2>
+		<table>
+			<thead>
+				<tr>
+          <th>ID</th>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Date de commande</th>
+					<th>Etat</th>
+					<th>Prix total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for commande in commandes %}
+					<tr>
+            <td>{{ commande.acheteur.id }}</td>
+						<td>{{ commande.acheteur.nom }}</td>
+						<td>{{ commande.acheteur.prenom }}</td>
+						<td>{{ commande.dateCommande|date("Y/m/d") }}</td>
+						<td>{{ commande.etat|join(', ') }}</td>
+						<td>{{ (commande.Total / 100) }}€</td>
+						<td><a href="{{ path('commande_detail', { id: commande.id }) }}" class="btnShow">+</a></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<h2>Votre historique de commande est vide :/</h2>
+	{% endif %}
+{% endblock %}

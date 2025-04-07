@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 318.31 199.85">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #7e1416;
+      }
+
+      .cls-2 {
+        font-family: Optima-Regular, Optima;
+        font-size: 119px;
+        letter-spacing: .03em;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #231f20;
+      }
+
+      .cls-3 {
+        font-family: CourierNewPSMT, 'Courier New';
+        font-size: 53px;
+      }
+    </style>
+  </defs>
+  <polyline class="cls-1" points="262.87 0 134.28 199.85 71.57 35.43"/>
+  <text class="cls-2" transform="translate(64.02 118.96)"><tspan x="0" y="0">PSL</tspan></text>
+  <text class="cls-3" transform="translate(0 154.44)"><tspan x="0" y="0">Logistique</tspan></text>
+</svg>

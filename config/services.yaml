@@ -24,4 +24,14 @@ services:
             - "%env(DATABASE_URL)%"
             - { "ttl": 1000 }
     # add more service definitions when explicit configuration is needed
+    App\EventSubscriber\CalendarSubscriber:
+    # CalendarBundle\Serializer\Serializer:
+    #     public: false
+
+    # CalendarBundle\Controller\CalendarController:
+    #     public: true
+    #     autowire: true
+    #     arguments:
+    #         $eventDispatcher: '@event_dispatcher'
+    #         $serializer: '@CalendarBundle\Serializer\Serializer'
     # please note that last definitions always *replace* previous ones

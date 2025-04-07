@@ -19,7 +19,7 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
-                default_target_path: produits
+                default_target_path: home
                 enable_csrf: false
             logout:
                 path: app_logout
@@ -46,6 +46,7 @@ security:
         - { path: ^/test2/, roles: ROLE_USER }
         - { path: ^/test9, roles: [ROLE_ADMIN, ROLE_LOGISTICIEN, ROLE_ACHETEUR] }
         - { path: ^/test, roles: ROLE_ADMIN }
+        - { path: ^/home$, roles: [ROLE_ADMIN, ROLE_LOGISTICIEN, ROLE_ACHETEUR, ROLE_GESTIONNAIRE] }
         - { path: ^/commande/add/, roles: [ROLE_ADMIN, ROLE_LOGISTICIEN, ROLE_ACHETEUR] }
         - { path: ^/commande/checkout$, roles: ROLE_ACHETEUR }
         - { path: ^/commande/begin/, roles: ROLE_LOGISTICIEN }

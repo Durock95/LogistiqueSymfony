@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('styles/test7.css') }}">
+{% endblock %}
+
+{% block title %}Home
+{% endblock %}
+
+{% block body %}
+<aside>
+<img src="{{asset ('images/psl2.svg') }}"  width="150px" height="120px">
+ <nav>
+{% if is_granted('ROLE_ACHETEUR') %}
+     <ul>
+      <li id="user">Acheteur</li>
+      <li><a class="texteMenu" href="{{ path('commandes') }}">Commandes</a></li>
+      <li><a class="texteMenu" href="#">Historique</a></li>
+      <li><a class="texteMenu" href="#">Catégories</a></li>
+      <li><a class="texteMenu" href="#">Produits</a></li>
+    </ul>
+{% elseif is_granted('ROLE_LOGISTICIEN') %}
+        <ul>
+      <li id="user">Logisticien</li>
+      <li><a class="texteMenu" href="{{ path('commandes') }}">Commandes</a></li>
+      <li><a class="texteMenu" href="#">Historique</a></li>
+      <li><a class="texteMenu" href="#">Stock</a></li>
+      <li><a class="texteMenu" href="#">Fournisseurs</a></li>
+      <li><a class="texteMenu" href="#">Catégories</a></li>
+      <li><a class="texteMenu" href="#">Produits</a></li>
+    </ul>
+{% elseif is_granted('ROLE_GESTIONNAIRE') %}
+    <ul>
+      <li id="user">Gestionnaire</li>
+      <li><a class="texteMenu" href="{{ path('commandes') }}">Commandes</a></li>
+      <li><a class="texteMenu" href="#">Historique</a></li>
+      <li><a class="texteMenu" href="#">Stock</a></li>
+      <li><a class="texteMenu" href="#">Fournisseurs</a></li>
+      <li><a class="texteMenu" href="#">Catégories</a></li>
+      <li><a class="texteMenu" href="#">Produits</a></li>
+      <li><a class="texteMenu" href="#">Points de vente</a></li>
+    </ul>    
+{% elseif is_granted('ROLE_ADMIN') %}
+    <ul>
+      <li id="user">Administrateur</li>
+      <li><a class="texteMenu" href="{{ path('commandes') }}">Commandes</a></li>
+      <li><a class="texteMenu" href="#">Historique</a></li>
+      <li><a class="texteMenu" href="#">Stock</a></li>
+      <li><a class="texteMenu" href="#">Fournisseurs</a></li>
+      <li><a class="texteMenu" href="#">Catégories</a></li>
+      <li><a class="texteMenu" href="#">Produits</a></li>
+      <li><a class="texteMenu" href="#">Points de vente</a></li>
+      <li><a class="texteMenu" href="#">Utilisateurs</a></li>
+    </ul>
+    {% endif %}
+  </nav>
+</aside>
+<div>
+</div>
+{% endblock %}

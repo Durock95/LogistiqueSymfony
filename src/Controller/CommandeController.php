@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commande;
 use App\Entity\LigneCommande;
 use App\Entity\Produit;
+use App\Entity\User;
 use App\Enum\EtatCommande;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,6 +19,30 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class CommandeController extends AbstractController
 {
+
+    // Route qui affiche les commandes de l'utilisateur logué
+    #[Route('/commandes', name: 'commandes', methods: ['GET'])]
+public function commandes(EntityManagerInterface $entityManager): Response
+{
+    // $user = $entityManager-> getRepository(User::class)->find($id);
+    $commandes = $entityManager->getRepository(Commande::class)->findBy([], ['numero' => 'ASC']);
+    // if ($this->getUser()->getRoles()[0] !== 'ROLE_ACHETEUR' && $commandes->getAcheteur() !== $this->getUser())
+    // return $this->render('security/login.html.twig');
+    // if ($this->getUser() === 'ROLE_ACHETEUR') {
+    //     return $this->render('commande/commandeIndisponible.html.twig');
+    // }
+    return $this->render('commande/commandes.html.twig', ['commandes' => $commandes]);
+}
+
+    // Route qui affiche le détail d'une commande de l'utilisateur logué
+    #[Route('/commande_detail/{id}', name: 'commande_detail', methods: ['GET'], requirements: ['id' => '[1,9][0,9]*'])]
+public function commandeDetail(EntityManagerInterface $entityManager, int $id): Response
+{
+    $commande = $entityManager->getRepository(Commande::class)->find($id);
+    $lignes = $entityManager->getRepository(LigneCommande::class)->findBy([], ['commande' => $commande]);
+    return $this->render('commande/commande_detail.html.twig', ['commande' => $commande, 'lignes' => $lignes]);
+}
+
     // Route qui affiche le panier
     #[Route('/panier', name: 'panier', methods: ['GET'])]
 public function panier(EntityManagerInterface $entityManager): Response
@@ -313,3 +338,4 @@ public function update(Request $request, EntityManagerInterface $entityManager, 
 
     
 }
+

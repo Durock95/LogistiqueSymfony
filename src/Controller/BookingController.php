@@ -19,22 +19,22 @@ final class BookingController extends AbstractController{
     {
         $events = $booking->findAll();
 
-        $rdv = [];
+        $rdvs = [];
 
         foreach($events as $event) {
-            $rdv[] = [
+            $rdvs[] = [
                 'id' => $event->getId(),
                 'start' => $event->getStart()->format('Y-m-d H:i:s'),
                 'end' => $event->getEnd()->format('Y-m-d H:i:s'),
                 'title' => $event->getTitle(),
-                'backgroundColor' => $event->getBackgroundColor(),
-                'borderColor' => $event->getBorderColor(),
-                'textColor' => $event->getTextColor(),
-                'allDay' => $event->getAllDay(),
+                // 'backgroundColor' => $event->getBackgroundColor(),
+                // 'borderColor' => $event->getBorderColor(),
+                // 'textColor' => $event->getTextColor(),
+                // 'allDay' => $event->getAllDay(),
 
             ];
         }
-        $data = json_encode(($rdv));
+        $data = json_encode(($rdvs));
 
         return $this->render('booking/calendar.html.twig', ['data' => $data]);
     }

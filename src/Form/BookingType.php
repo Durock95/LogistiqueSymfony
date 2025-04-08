@@ -22,10 +22,10 @@ class BookingType extends AbstractType
             ->add('end', DateTimeType::class, [
                 'widget' => 'single_text'
             ])
-            ->add('allDay', CheckboxType::class)
-            ->add('backgroundcolor', ColorType::class)
-            ->add('textColor', ColorType::class)
-            ->add('borderColor', ColorType::class)
+            // ->add('allDay', CheckboxType::class)
+            // ->add('backgroundcolor', ColorType::class)
+            // ->add('textColor', ColorType::class)
+            // ->add('borderColor', ColorType::class)
 
         ;
     }

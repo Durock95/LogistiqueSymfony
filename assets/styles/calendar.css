@@ -1,11 +1,16 @@
 /* assets/js/calendar/index.css */
 
 @import url('https://fonts.googleapis.com/css?family=Muli:400,900&display=swap');
+@import "~@fullcalendar/common/main.css";
+
+* {
+  font-family: Arial;
+  font-size: 12px;
+}
 
 #calendar-holder {
-  font-family: 'Muli', sans-serif;
-  width: 800px;
-  margin: 0 auto;
+  width: 80%;
+  margin: auto;
 }
 
 .fc-toolbar h2,

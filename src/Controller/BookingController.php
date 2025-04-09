@@ -18,7 +18,7 @@ final class BookingController extends AbstractController{
     public function calendar(EntityManagerInterface $entityManager, BookingRepository $booking): Response
     {
         $events = $booking->findAll();
-
+        // dd($events);
         $rdvs = [];
 
         foreach($events as $event) {
@@ -91,6 +91,25 @@ final class BookingController extends AbstractController{
         return $this->render('booking/edit.html.twig', [
             'booking' => $booking,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/event/edit/{id}', name: 'event_booking_edit', methods: ['GET'], requirements: ['id' => '[1-9][0-9]*'])]
+    public function eventEdit(Booking $booking, EntityManagerInterface $entityManager, $id): Response
+    {
+        $donnees = $entityManager->getRepository(Booking::class)->find($id);
+        if (!$donnees || $donnees->getTitle() !== '') {
+            $booking = new Booking();
+            $booking->getId();
+            $booking->setTitle($donnees->title);
+            $booking->setStart($donnees->start);
+            $booking->setEnd($donnees->end);
+            $entityManager->persist($booking);
+            $entityManager->flush();
+        }
+
+        return $this->render('booking/calendar.html.twig', [
+            'booking' => $booking,
         ]);
     }
 

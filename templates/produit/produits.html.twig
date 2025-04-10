@@ -5,52 +5,54 @@
 
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('styles/test7.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/test7.css') }}">
 {% endblock %}
 
 {% block javascripts %}
-	<script src="{{ asset('controllers/ligne_produit_controller.js') }}" defer></script>
+    <script src="{{ asset('controllers/ligne_produit_controller.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
-<h1>Produits</h1>
-<a href="{{ path('panier')}}">Panier</a>
+    <h1>Produits</h1>
+    <a href="{{ path('panier') }}">Panier</a>
 
-<div id="alerts">
-</div>
-<table class="m-auto">
-	<thead>
-		<td>Nom</td>
-		<td>Catégorie</td>
-		<td>Référence</td>
-		<td>Conditionnement</td>
-		<td>Quantité par cond.</td>
-		<td>Emplacement</td>
-		<td>Prix</td>
-		<td>Quota</td>
-	</thead>
-	{% for produit in produits %}
-		{# Passer l'id à la fonction JS qui va faire le fetch: passer en paramètre, ou écouteur d'évènement et la fonction se sert de la prop target (type mouseclick, prop target => ce sur quoi on a cliqué, àpartir de la l'élément selctionné, avec un id produit=ok . Mettre des id dynamiques sur les éléments html) #}
-		<tr>
-			<td>{{ produit.nom }}</td>
-			<td>{{ produit.categorie.nom }}</td>
-			<td>{{ produit.reference }}</td>
-			<td>{{ produit.typeConditionnement }}</td>
-			<td>{{ produit.quantite }}</td>
-			<td>{{ produit.emplacement }}</td>
-			<td>{{ (produit.prix / 100) | number_format }}</td>
-			<td>{{ produit.quota }}</td>
-			<td>
-				<input type="number" name="quantite" value="1" size="2" max="20">
-			  <input type="hidden" name="produit_id" value="{{ produit.id }}">
-			</td>
-			<td>
-				<button onclick="add(this)">Ajouter</button>
-			</td>
-		</tr>
-		{# {{ path('commande_add', {id: produit.id, quantite: produit.quantite})/ /commande/add/{{ produit.id }}/ #}
-	</td>
-	<td>
-		<img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.imageName }}" height="100">
-	</td>
-</tr>{% endfor %}</table>{% endblock %}
+    <div id="alerts">
+    </div>
+    <table class="m-auto">
+    <thead>
+    <tr>
+    <td>Nom</td>
+    <td>Catégorie</td>
+    <td>Référence</td>
+    <td>Conditionnement</td>
+    <td>Quantité par cond.</td>
+    <td>Emplacement</td>
+    <td>Prix</td>
+    <td>Quota</td>
+    </tr>
+    </thead>
+    {% for produit in produits %}
+        {# Passer l'id à la fonction JS qui va faire le fetch: passer en paramètre, ou écouteur d'évènement et la fonction se sert de la prop target (type mouseclick, prop target => ce sur quoi on a cliqué, àpartir de la l'élément selctionné, avec un id produit=ok . Mettre des id dynamiques sur les éléments html) #}
+        <tr>
+            <td>{{ produit.nom }}</td>
+            <td>{{ produit.categorie.nom }}</td>
+            <td>{{ produit.reference }}</td>
+            <td>{{ produit.typeConditionnement }}</td>
+            <td>{{ produit.quantite }}</td>
+            <td>{{ produit.emplacement }}</td>
+            <td>{{ (produit.prix / 100) | number_format }}</td>
+            <td>{{ produit.quota }}</td>
+            <td>
+                <input type="number" name="quantite" value="1" size="2" max="20">
+                <input type="hidden" name="produit_id" value="{{ produit.id }}">
+            </td>
+            <td>
+                <button onclick="add(this)">Ajouter</button>
+            </td>
+        </tr>
+        {# {{ path('commande_add', {id: produit.id, quantite: produit.quantite})/ /commande/add/{{ produit.id }}/ #}
+        </td>
+        <td>
+            <img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.imageName }}" height="100">
+        </td>
+        </tr>{% endfor %}</table>{% endblock %}

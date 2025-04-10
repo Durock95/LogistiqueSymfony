@@ -24,6 +24,7 @@ class CalendarSubscriber implements EventSubscriberInterface
 
     public function onCalendarSetData(SetDataEvent $setDataEvent)
     {
+//        $id = $setDataEvent->getFilters()['id'] ?? '';
         $start = $setDataEvent->getStart();
         $end = $setDataEvent->getEnd();
         $filters = $setDataEvent->getFilters();
@@ -42,6 +43,7 @@ class CalendarSubscriber implements EventSubscriberInterface
         foreach ($bookings as $booking) {
             // this create the events with your data (here booking data) to fill calendar
             $bookingEvent = new Event(
+//                $booking->getId(),
                 $booking->getTitle(),
                 $booking->getStart(),
                 $booking->getEnd() // If the end date is null or not defined, a all day event is created.
@@ -53,6 +55,7 @@ class CalendarSubscriber implements EventSubscriberInterface
              * For more information see: https://fullcalendar.io/docs/event-object
              */
             $bookingEvent->setOptions([
+//                'id' => $booking->getId(),
                 'backgroundColor' => 'red',
                 'borderColor' => 'red',
             ]);

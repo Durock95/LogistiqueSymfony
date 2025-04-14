@@ -1,4 +1,15 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+<div class="m-auto text-xl">
+    <div class="text-red-100 text-xl">{{form_errors(form)}}</div>
+    <div class="item">{{form_row(form.title)}}</div>
+    <div class="item">{{form_row(form.eventCat)}}</div>
+    <div class="item">{{form_row(form.users )}}</div>
+    <div class="item">{{form_row(form.start)}}</div>
+    <div class="item">{{form_row(form.end)}}</div>
+</div>
+{# {{form(form)}} #}
+{{form_rest(form)}}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+

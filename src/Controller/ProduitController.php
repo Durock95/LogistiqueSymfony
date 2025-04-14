@@ -39,7 +39,7 @@ final class ProduitController extends AbstractController
         return $this->redirectToRoute('test9');
     }
 
-    // Route qui list l'ensemble des produits et permet d'ajouter les produits
+    // Route qui liste l'ensemble des produits et permet d'ajouter les produits au panier
     #[Route('/produits', name: 'produits', methods: ['GET'])]
     public function produits(EntityManagerInterface $entityManager, Request $request, int $id = 0): Response
     { 

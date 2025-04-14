@@ -71,9 +71,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'acheteur')]
     private Collection $commandes;
 
+//    #[ORM\OneToMany(targetEntity: EventCat::class, mappedBy: 'eventCat')]
+//    private ?EventCat $eventCat;
+
+    /**
+     * @var Collection<int, Booking>
+     */
+    #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'users')]
+    private Collection $books;
+
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
+        $this->books = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -252,5 +263,50 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getEventCat(): ?EventCat
+    {
+        return $this->eventCat;
+    }
+
+    public function setEventCat(?EventCat $eventCat): static
+    {
+        $this->eventCat = $eventCat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBooks(): Collection
+    {
+        return $this->books;
+    }
+
+    public function addBook(Booking $book): static
+    {
+        if (!$this->books->contains($book)) {
+            $this->books->add($book);
+            $book->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBook(Booking $book): static
+    {
+        if ($this->books->removeElement($book)) {
+            // set the owning side to null (unless already changed)
+            if ($book->getUsers() === $this) {
+                $book->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
 
 }

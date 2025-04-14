@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BookingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,15 @@ class Booking
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
+
+    #[ORM\ManyToOne(inversedBy: 'bookings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?EventCat $eventCat;
+
+    #[ORM\ManyToOne(inversedBy: 'books')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $users = null;
+
 
     public function getId(): ?int
     {
@@ -63,4 +74,30 @@ class Booking
 
         return $this;
     }
+
+    public function getEventCat(): ?EventCat
+    {
+        return $this->eventCat;
+    }
+
+    public function setEventCat(?EventCat $eventCat): static
+    {
+        $this->eventCat = $eventCat;
+
+        return $this;
+    }
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): static
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+
 }

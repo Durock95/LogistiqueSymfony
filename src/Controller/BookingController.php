@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use CalendarBundle\Controller;
 use App\Entity\Booking;
 use App\Form\BookingType;
@@ -15,7 +16,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 
 #[Route('/booking')]
-final class BookingController extends AbstractController{
+final class BookingController extends AbstractController
+{
     // Route qui affiche le calendrier
     #[Route('/calendar', name: 'app_booking_calendar', methods: ['GET', 'POST'])]
     public function calendar(EntityManagerInterface $entityManager, BookingRepository $bookingRepository): Response
@@ -24,9 +26,9 @@ final class BookingController extends AbstractController{
         // dd($events);
         $events = [];
 
-        foreach($bookings as $booking) {
+        foreach ($bookings as $booking) {
             $events[] = [
-                'id' => (string) $booking->getId(),
+                'id' => (string)$booking->getId(),
                 'start' => $booking->getStart()->format('Y-m-d H:i:s'),
                 'end' => $booking->getEnd()->format('Y-m-d H:i:s'),
                 'title' => $booking->getTitle(),
@@ -46,32 +48,40 @@ final class BookingController extends AbstractController{
     }
 
     // Route qui affiche la liste des évènements
-    #[Route('/index', name: 'app_booking_index', methods: ['GET'])]
+    #[Route('/index', name: 'booking_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager, BookingRepository $bookingRepository): Response
     {
         // $bookings = $entityManager->getRepository(Booking::class)->findBy([], ['title' => 'ASC'])
+        $eventCat = $entityManager->getRepository(Booking::class)->findBy([], ['title' => 'ASC']);
         return $this->render('booking/index.html.twig', [
             'bookings' => $bookingRepository->findAll(),
+            'eventCat' => $eventCat
         ]);
     }
 
     // Route affichant le formulaire de création d'un évènement
     #[Route('/new', name: 'app_booking_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, int $id = 0): Response
     {
         $booking = new Booking();
-        $form = $this->createForm(BookingType::class, $booking);
+        $eventCat = $entityManager->getRepository(Booking::class)->findBy(['id' => $id, 'title' => 'ASC']);
+        $users = $entityManager->getRepository(User::class)->findBy(['id' => $id, 'nom' => 'ASC']);
+        $form = $this->createForm(BookingType::class, $booking, ['eventCat' => $eventCat, 'users' => $users]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $booking->setTitle($form->get('title')->getData());
+            $booking->setStart(new \DateTime());
+            $booking->setEnd(new \DateTime());
             $entityManager->persist($booking);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_booking_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('booking_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('booking/new.html.twig', [
-            'booking' => $booking,
+//            'booking' => $booking,
+//            'eventCat' => $eventCat,
             'form' => $form,
         ]);
     }
@@ -128,7 +138,7 @@ final class BookingController extends AbstractController{
     #[Route('/{id}', name: 'app_booking_delete', methods: ['POST'])]
     public function delete(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$booking->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $booking->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($booking);
             $entityManager->flush();
         }

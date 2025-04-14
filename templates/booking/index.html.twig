@@ -9,6 +9,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Catégorie d'évt.</th>
+                <th>Utilisateur</th>
                 <th>Start</th>
                 <th>End</th>
                 <th>Title</th>
@@ -19,6 +21,8 @@
         {% for booking in bookings %}
             <tr>
                 <td>{{ booking.id }}</td>
+                <td>{{ booking.eventCat.name }}</td>
+                <td>{{ booking.users.nom }} {{ booking.users.prenom }}</td>
                 <td>{{ booking.start ? booking.start|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ booking.end ? booking.end|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ booking.title }}</td>

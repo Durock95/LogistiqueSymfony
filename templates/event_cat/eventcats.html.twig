@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catégories d'évènements
+{% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/test7.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+
+{% block body %}
+    <h1>Catégories d'évènements</h1>
+    <a href="{{ path('booking_index') }}">Evènements</a>
+
+    <div id="alerts">
+    </div>
+    <table class="m-auto">
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Nom</td>
+    </tr>
+    </thead>
+    {% for eventCat in eventCats %}
+        {# Passer l'id à la fonction JS qui va faire le fetch: passer en paramètre, ou écouteur d'évènement et la fonction se sert de la prop target (type mouseclick, prop target => ce sur quoi on a cliqué, àpartir de la l'élément selctionné, avec un id produit=ok . Mettre des id dynamiques sur les éléments html) #}
+        <tr>
+        <td>{{ eventCat.id }}</td>
+        <td>{{ eventCat.name }}</td>
+
+        </tr>{% endfor %}</table>{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create event category{% endblock %}
+
+    {% block stylesheets %}<link rel="stylesheet" href="{{ asset('styles/test7.css') }}" >{% endblock %}
+
+
+{% block body %}
+    {{form_start(form)}}
+    <div class="m-auto text-xl">
+        <div class="item">{{form_errors(form)}}</div>
+        <div class="item">{{form_row(form.name)}}</div>
+{#        <div class="item">{{form_row(form.bookings)}}</div>#}
+{#        <div class="item">{{form_row(form.users)}}</div>#}
+    </div>
+
+    {{form_rest(form)}}
+    <a href="/index">Tous les évènements</a><br>
+    <a href="/new">Créer un évènement</a>
+{% endblock %}

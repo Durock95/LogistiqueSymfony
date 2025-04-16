@@ -1,8 +1,8 @@
 LogistiqueSymfony
 
-This project is based on a fictional logistical management web application introduced by our mentor and 
-student group for Web and Mobile Web Development training course.
-Since 2025-04-01 the project is evoluting by myself, adding MVC structure to build this application to its specifications.
+This project is based on a fictional logistical management web application introduced by our mentor
+for Web and Mobile Web Development training course.
+The project is evoluting, adding MVC structure to build this application to its specifications.
 
 You'll find a base for logistical company to manage suppliers, entries, products, categories, commands, users, 
 with relational entities, access and views controllers, formulars to create or modifiy data into the database.

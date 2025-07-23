@@ -1,4 +1,4 @@
-<h1>LogistiqueSymfony</h1>
+# LogistiqueSymfony
 
 This is a fictional logistical management application based on Symfony.
 It includes entities for suppliers, products, categories, commands, and users, with full CRUD interfaces and Docker support.
@@ -6,7 +6,7 @@ It includes entities for suppliers, products, categories, commands, and users, w
 You'll find a base for logistical company to manage suppliers, entries, products, categories, commands, users, 
 with relational entities, access and views controllers, formulars to create or modifiy data into the database.
 
-Technologies
+### Technologies
 
   - Symfony (PHP framework) to manage Model / View / Controller</li>
   - Docker (MySQL and phpMyAdmin)</li>
@@ -15,75 +15,75 @@ Technologies
   - CSS (basic styling)</li>
 
 
-<h2>Installation (macOs):</h2>
+## Installation (macOs):
 
-<h2>1. Clone this project</h2>
+### 1. Clone this project
 
 ```bash
 https://github.com/Durock95/LogistiqueSymfony.git
 ```
-<h2>2. Install necessary tools</h2>
+### 2. Install necessary tools
 
-Homebrew
+#### Homebrew
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-PHP
+#### PHP
 
 ```bash
 brew install php
 php --version
 ```
 
-Composer
+#### Composer
 
 ```bash
 brew install composer
 composer --version
 ```
-Symfony CLI
+#### Symfony CLI
 
 ```bash
 brew install symfony-cli/tap/symfony-cli
 symfony -V
 ```
 
-<h2>3. Run the project</h2>
+### 3. Run the project
 
-Install dependencies
+#### Install dependencies
 
 ```bash
 composer install
 ```
-Configure `.env`
+#### Configure `.env`
 
-Modify `DATABASE_URL=`with:
+#### Modify `DATABASE_URL=`with:
 ```bash
  DATABASE_URL="mysql://root:root@127.0.0.1:3306/databaseName?serverVersion=9.2.0&charset=utf8mb4"
 ```
 
-Run Docker (MySQL + phpMyAdmin)
+#### Run Docker (MySQL + phpMyAdmin)
 
 Be sure that `compose.yaml` is configured with MySQL:
 ```bash
 docker compose up -d
 ```
 
-Create database
+#### Create database
 
 ```bash
 php bin/console doctrine:database:create
 ```
 In phpMyAdmin (`http://localhost:8080`), change collation in `utf8mb4_unicode_ci` (it supports mappings such as expansions).
 
-<h2>4. Launch Symfony server</h2>
+### 4. Launch Symfony server
 
 ```bash
 symfony server:start
 ```
 
-<h2>5. Other useful packages</h2>
+### 5. Other useful packages
 
 - Twig : `composer require symfony/twig-bundle`<br>
 - Twig Intl : `composer require twig/intl-extra`<br>

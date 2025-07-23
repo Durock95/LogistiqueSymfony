@@ -14,8 +14,8 @@ with relational entities, access and views controllers, formulars to create or m
   - Javascript (event listeners, FullCalendar</li>
   - CSS (basic styling)</li>
 
-
-## Installation (macOs):
+<details>
+<summary><h2>Installation macOs:</h2></summary>
 
 ### 1. Clone this project
 
@@ -48,6 +48,54 @@ composer --version
 brew install symfony-cli/tap/symfony-cli
 symfony -V
 ```
+</details>
+<details>
+  <summary><h2>Installation Windows</h2></summary>
+  
+  ### 1. Clone this project
+
+```bash
+https://github.com/Durock95/LogistiqueSymfony.git
+```
+### 2. Install necessary tools
+
+#### PHP
+
+Download the PHP zip tree (CLI)
+```bash
+https://windows.php.net/download
+```
+Unzip it in an empty directory.
+Add the directory path.
+Dupplicate `php.ini-development` and rename it in `php.ini`.
+In the `php.ini` file, activate extensions such as:<br>
+- `extensions=pdo_mysql`
+- `extension=zip`
+
+Get the version:
+```bash
+php --version
+```
+
+#### Composer
+
+Download the installer: `https://getcomposer.org/download`
+Execute installer (with addition to the path).
+Get the version:
+```bash
+composer --version
+```
+
+#### Symfony CLI
+
+Download the zipped binary Symfony CLI (amd64) : `https://symfony.com/download`
+Unzip it in an empty directory.
+Add the directory path.
+Get the version:
+```bash
+symfony -V
+```
+</details>
 
 ### 3. Run the project
 

@@ -15,7 +15,7 @@ Technologies
   - CSS (basic styling)</li>
 
 
-#Installation (macOs):
+<h2>Installation (macOs):</h2>
 
 <h2>1. Clone this project</h2>
 

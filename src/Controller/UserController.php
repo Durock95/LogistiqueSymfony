@@ -16,40 +16,38 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
-final class UserController extends AbstractController{
+final class UserController extends AbstractController
+{
 
     // Route qui va lister tous les utilisateurs
     #[Route('/userlist', name: 'userlist', methods: ['GET'])]
     public function userlist(EntityManagerInterface $entityManager): Response
     {
-       $users = $entityManager->getRepository(User::class)->findBy([], ['nom' => 'ASC']);
-       $poinDeVentes = $entityManager->getRepository(PointDeVente::class)->findBy([], ['nom' => 'ASC']);
-       return $this->render('user/userlist.html.twig', [
-        'users' => $users, 
-        'pointDeVentes' => $poinDeVentes,
+        $users = $entityManager->getRepository(User::class)->findBy([], ['nom' => 'ASC']);
+        $poinDeVentes = $entityManager->getRepository(PointDeVente::class)->findBy([], ['nom' => 'ASC']);
+        return $this->render('user/userlist.html.twig', [
+            'users' => $users,
+            'pointDeVentes' => $poinDeVentes,
         ]);
-
     }
 
-        // Route pour afficher le formulaire global des utilisateurs
-        #[Route('/create/{id}', name: 'create', methods: ['GET', 'POST'], requirements: ['id' => '[1-9][0-9]*'])]
-        public function create(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher, int $id = 0): Response
-        {
-            $user = $id ? $entityManager->getRepository(User::class)->find($id) : new User();
-            $pointDeVentes = $entityManager->getRepository(PointDeVente::class)->findBy([], ['nom' => 'ASC']);
-            $form = $this->createForm(UserType::class, $user, ['pointDeVentes' => $pointDeVentes]); // 
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $plainPassword = $form->get('password')->getData();
-                $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-                $entityManager->persist($user);
-                $entityManager->flush();
-                return $this->redirectToRoute('userlist');
-            
-            }
-            if ($form->isSubmitted())
-            dump("Le formulaire n'est pas valide");
-            return $this->render('user/create.html.twig', ['form' => $form]);
+    // Route pour afficher le formulaire global des utilisateurs
+    #[Route('/create/{id}', name: 'create', methods: ['GET', 'POST'], requirements: ['id' => '[1-9][0-9]*'])]
+    public function create(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher, int $id = 0): Response
+    {
+        $user = $id ? $entityManager->getRepository(User::class)->find($id) : new User();
+        $pointDeVentes = $entityManager->getRepository(PointDeVente::class)->findBy([], ['nom' => 'ASC']);
+        $form = $this->createForm(UserType::class, $user, ['pointDeVentes' => $pointDeVentes]); // 
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $form->get('password')->getData();
+            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->redirectToRoute('userlist');
         }
-    
+        if ($form->isSubmitted())
+            dump("Le formulaire n'est pas valide");
+        return $this->render('user/create.html.twig', ['form' => $form]);
+    }
 }

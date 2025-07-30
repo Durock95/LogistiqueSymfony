@@ -18,14 +18,13 @@ class Commande
     private ?int $id = null;
 
     #[ORM\Column(length: 20, nullable: true)]
-    
     private ?string $numero = null;
 
     #[ORM\Column(enumType: EtatCommande::class)]
     private ?EtatCommande $etat = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $Total = null;
+    private ?int $total = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateCommande = null;
@@ -89,12 +88,12 @@ class Commande
 
     public function getTotal(): ?int
     {
-        return $this->Total;
+        return $this->total;
     }
 
-    public function setTotal(int $Total): static
+    public function setTotal(int $total): static
     {
-        $this->Total = $Total;
+        $this->total = $total;
 
         return $this;
     }

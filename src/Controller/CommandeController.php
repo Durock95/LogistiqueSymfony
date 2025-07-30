@@ -200,7 +200,10 @@ public function update(Request $request, EntityManagerInterface $entityManager, 
     public function checkout(EntityManagerInterface $entityManager): Response
     // Récupérer l’unique commande en cours de l’utilisateur logué.
     {
-        $commandes = $entityManager->getRepository(Commande::class)->findBy(['etat' => EtatCommande::EN_COURS]);
+        $commandes = $entityManager->getRepository(Commande::class)->findBy([
+            'etat' => EtatCommande::EN_COURS,
+            'acheteur' => $this->getUser(),
+        ]);
         // Si pas de commandes en cours
         if (!$commandes)
             return new JsonResponse(['ok' => false]);
